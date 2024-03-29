@@ -1,0 +1,177 @@
+<%- include('layout/header') %>
+    <div class="container mt-5">
+        <h1 class="mb-2">Listado de Eventos</h1>
+        <button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Agregar Eventos
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Evento</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="eventos" method="post">
+                            <div class="mb-3">
+                                <label for="tipo" class="form-label">Tipo de Evento</label>
+                                <input type="text" class="form-control" name="tipo" id="tipo"
+                                    placeholder="Tipo de Evento..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="descripcion" class="form-label">Descripcion del Materia</label>
+                                <input type="text" class="form-control" name="descripcion" id="descripcion"
+                                    placeholder="Descripcion..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fecha" class="form-label">Fecha del Evento</label>
+                                <input type="date" class="form-control" name="fecha" id="fecha" placeholder="Fecha..."
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="materiaId" class="form-label">ID de la Materia</label>
+                                <input type="text" class="form-control" name="materiaId" id="materiaId"
+                                    placeholder="ID de la Materia..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="token" class="form-label">Token de acceso</label>
+                                <input type="text" class="form-control" name="token" id="token" placeholder="Token..."
+                                    required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Agregar Materia</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% if (eventos.length> 0) { %>
+            <table class="table table-bordered border-primary">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Materia ID</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% eventos.forEach((row, index)=> { %>
+                        <tr class="table-primary border-primary">
+                            <td scope="row">
+                                <%= row._id %>
+                            </td>
+                            <td>
+                                <%= row.tipo %>
+                            </td>
+                            <td>
+                                <%= row.descripcion %>
+                            </td>
+                            <td>
+                                <%= row.fecha %>
+                            </td>
+                            <td>
+                                <%= row.materiaId %>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
+                                    data-bs-target="#<%=row._id %>2">Editar</button>
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                    data-bs-target="#<%=row._id %>">Eliminar</button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="<%=row._id %>" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel3" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel3">Eliminar Evento
+                                                </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="eventos/eliminar/<%=row._id %>" method="post">
+                                                    <div class="mb-3">
+                                                        <label for="token" class="form-label">Token de acceso</label>
+                                                        <input type="text" class="form-control" name="token" id="token"
+                                                            placeholder="Token..." required>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-danger">Eliminar
+                                                        Evento</button>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger"
+                                                    data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="<%=row._id %>2" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Evento</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="eventos/editar/<%=row._id %>" method="post">
+                                                    <div class="mb-3">
+                                                        <label for="tipo" class="form-label">Tipo de Evento</label>
+                                                        <input type="text" class="form-control" name="tipo" id="tipo"
+                                                            placeholder="<%=row.tipo %>" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="descripcion" class="form-label">Descripcion del
+                                                            Materia</label>
+                                                        <input type="text" class="form-control" name="descripcion"
+                                                            id="descripcion" placeholder="<%=row.descripcion%>" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="fecha" class="form-label">Fecha del Evento</label>
+                                                        <input type="date" class="form-control" name="fecha" id="fecha"
+                                                            placeholder="<%=row.fecha%>" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="materiaId" class="form-label">ID de la
+                                                            Materia</label>
+                                                        <input type="text" class="form-control" name="materiaId"
+                                                            id="materiaId" placeholder="<%=row.materiaId %>" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="token" class="form-label">Token de acceso</label>
+                                                        <input type="text" class="form-control" name="token" id="token"
+                                                            placeholder="Token..." required>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-success">Editar
+                                                        Materia</button>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger"
+                                                    data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+            <% } else { %>
+                <h3>No hay Eventos Registrados...</h3>
+                <% } %>
+    </div>
+    <%- include('layout/footer') %>

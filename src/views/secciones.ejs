@@ -1,0 +1,165 @@
+<%- include('layout/header') %>
+    <div class="container mt-5">
+        <h1 class="mb-2">Listado de Secciones</h1>
+
+        <button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Agregar Secciones
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Sección</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="secciones" method="post">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre de la Sección</label>
+                                <input type="text" class="form-control" name="nombre" id="nombre"
+                                    placeholder="Nombre..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="alumnos" class="form-label">Alumnos que estan en la Sección</label>
+                                <input type="number" class="form-control" name="alumnos" id="alumnos"
+                                    placeholder="Alumnos..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="materiaId" class="form-label">ID de la Materia</label>
+                                <input type="text" class="form-control" name="materiaId" id="materiaId"
+                                    placeholder="ID de la Materia..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="token" class="form-label">Token de acceso</label>
+                                <input type="text" class="form-control" name="token" id="token" placeholder="Token..."
+                                    required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Agregar Sección</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% if (secciones.length> 0) { %>
+            <table class="table table-bordered border-primary">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Alumnos</th>
+                        <th scope="col">Materia ID</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% secciones.forEach((row, index)=> { %>
+                        <tr class="table-primary border-primary">
+                            <td scope="row">
+                                <%= row._id %>
+                            </td>
+                            <td>
+                                <%= row.nombre %>
+                            </td>
+                            <td>
+                                <%= row.alumnos %>
+                            </td>
+                            <td>
+                                <%= row.materiaId %>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
+                                    data-bs-target="#<%=row._id %>2">Editar</button>
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                    data-bs-target="#<%=row._id %>">Eliminar</button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="<%=row._id %>" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel3" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel3">Eliminar Secciones
+                                                </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="secciones/eliminar/<%=row._id %>" method="post">
+                                                    <div class="mb-3">
+                                                        <label for="token" class="form-label">Token de acceso</label>
+                                                        <input type="text" class="form-control" name="token" id="token"
+                                                            placeholder="Token..." required>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-danger">Eliminar
+                                                        Seccion</button>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger"
+                                                    data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="<%=row._id %>2" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Sección</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="secciones/editar/<%=row._id %>" method="post">
+                                                    <div class="mb-3">
+                                                        <label for="nombre" class="form-label">Nombre de la
+                                                            Sección</label>
+                                                        <input type="text" class="form-control" name="nombre"
+                                                            id="nombre" placeholder="<%=row.nombre %>" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="alumnos" class="form-label">Alumnos que estan en la
+                                                            Sección</label>
+                                                        <input type="number" class="form-control" name="alumnos"
+                                                            id="alumnos" placeholder="<%=row.alumnos %>" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="materiaId" class="form-label">ID de la
+                                                            Materia</label>
+                                                        <input type="text" class="form-control" name="materiaId"
+                                                            id="materiaId" placeholder="<%=row.materiaId %>" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="token" class="form-label">Token de acceso</label>
+                                                        <input type="text" class="form-control" name="token" id="token"
+                                                            placeholder="Token..." required>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-success">Editar
+                                                        Sección</button>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger"
+                                                    data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+            <% } else { %>
+                <h3>No hay Secciones Registradas...</h3>
+                <% } %>
+    </div>
+    <%- include('layout/footer') %>

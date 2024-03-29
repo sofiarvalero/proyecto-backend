@@ -1,0 +1,52 @@
+<%- include('layout/header') %>
+    <div class="container">
+        <h1 class="mt-5 mb-5"><%= mensaje %></h1>
+
+        <form class="mb-5" action="usuarios/acceder" method="post">
+            <h2 class="text-primary mb-3">Iniciar Sesion</h2>
+            <div class="mb-3">
+                <label for="usuario" class="form-label">Usuario</label>
+                <input type="text" class="form-control" name="usuario" id="usuario"
+                    placeholder="Usuario..." required>
+            </div>
+            <div class="mb-3">
+                <label for="contraseña" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" name="contraseña" id="contraseña"
+                    placeholder="Contraseña..." required>
+            </div>
+            <button type="submit" class="btn btn-success">Iniciar Sesion</button>
+        </form>
+        
+        <form class="pt-5 mb-5" action="usuarios/registrar" method="post">
+            <h2 class="text-primary mb-3">Registrarme</h2>
+            <div class="mb-3">
+                <label for="usuario" class="form-label">Usuario</label>
+                <input type="text" class="form-control" name="usuario" id="usuario"
+                    placeholder="Usuario..." required>
+            </div>
+            <div class="mb-3">
+                <label for="correo" class="form-label">Correo</label>
+                <input type="email" class="form-control" name="correo" id="correo"
+                    placeholder="Correo Electronico..." required>
+            </div>
+            <div class="mb-3">
+                <label for="rol" class="form-label">Rol</label>
+                <select class="form-control" name="rol" id="rol">
+                    <option value="director" selected>director</option>
+                    <option value="profesor">profesor</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="contraseña" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" name="contraseña" id="contraseña"
+                    placeholder="Contraseña..." required>
+            </div>
+            <div class="mb-3">
+                <label for="contraseñaConfirmacion" class="form-label">Confirmar Contraseña</label>
+                <input type="password" class="form-control" name="contraseñaConfirmacion" id="contraseñaConfirmacion"
+                    placeholder="Confirmar..." required>
+            </div>
+            <button type="submit" class="btn btn-info">Registrarme</button>
+        </form>
+    </div>
+    <%- include('layout/footer') %>

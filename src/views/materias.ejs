@@ -1,0 +1,180 @@
+<%- include('layout/header') %>
+    <div class="container mt-5">
+        <h1 class="mb-2">Listado de Materias</h1>
+        <button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Agregar Materias
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Materia</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="materias" method="post">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre de la Materia</label>
+                                <input type="text" class="form-control" name="nombre" id="nombre"
+                                    placeholder="Nombre..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="descripcion" class="form-label">Descripcion de la Materia</label>
+                                <input type="text" class="form-control" name="descripcion" id="descripcion"
+                                    placeholder="Descripcion..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="profesorId" class="form-label">ID del Profesor</label>
+                                <input type="text" class="form-control" name="profesorId" id="profesorId"
+                                    placeholder="ID del Profesor..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="creditos" class="form-label">Unidades de Créditos</label>
+                                <input type="number" class="form-control" name="creditos" id="creditos"
+                                    placeholder="Unidades de credito de la Materia..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="token" class="form-label">Token de acceso</label>
+                                <input type="text" class="form-control" name="token" id="token" placeholder="Token..."
+                                    required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Agregar Materia</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% if (materias.length> 0) { %>
+            <table class="table table-bordered border-primary">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Profesor ID</th>
+                        <th scope="col">Unidades de Crédito</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% materias.forEach((row, index)=> { %>
+                        <tr class="table-primary border-primary">
+                            <td scope="row">
+                                <%= row._id %>
+                            </td>
+                            <td>
+                                <%= row.nombre %>
+                            </td>
+                            <td>
+                                <%= row.descripcion %>
+                            </td>
+                            <td>
+                                <%= row.profesorId %>
+                            </td>
+                            <td>
+                                <%= row.creditos %>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
+                                    data-bs-target="#<%=row._id %>2">Editar</button>
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                    data-bs-target="#<%=row._id %>">Eliminar</button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="<%=row._id %>" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel3" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel3">Eliminar Materia
+                                                </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="materias/eliminar/<%=row._id %>" method="post">
+                                                    <div class="mb-3">
+                                                        <label for="token" class="form-label">Token de acceso</label>
+                                                        <input type="text" class="form-control" name="token" id="token"
+                                                            placeholder="Token..." required>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-danger">Eliminar
+                                                        Materia</button>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger"
+                                                    data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="<%=row._id %>2" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Materia</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="materias/editar/<%=row._id%>" method="post">
+                                                    <div class="mb-3">
+                                                        <label for="nombre" class="form-label">Nombre de la
+                                                            Materia</label>
+                                                        <input type="text" class="form-control" name="nombre"
+                                                            id="nombre" placeholder="<%=row.nombre%>" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="descripcion" class="form-label">Descripcion de la
+                                                            Materia</label>
+                                                        <input type="text" class="form-control" name="descripcion"
+                                                            id="descripcion" placeholder="<%=row.descripcion %>" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="profesorId" class="form-label">ID del
+                                                            Profesor</label>
+                                                        <input type="text" class="form-control" name="profesorId"
+                                                            id="profesorId" placeholder="<%=row.profesorId%>" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="creditos" class="form-label">Unidades de
+                                                            Créditos</label>
+                                                        <input type="number" class="form-control" name="creditos"
+                                                            id="creditos"
+                                                            placeholder="<%=row.creditos%>" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="token" class="form-label">Token de acceso</label>
+                                                        <input type="text" class="form-control" name="token" id="token"
+                                                            placeholder="Token..." required>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-success">Editar
+                                                        Materia</button>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger"
+                                                    data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+            <% } else { %>
+                <h3>No hay Materias Registradas...</h3>
+                <% } %>
+    </div>
+    <%- include('layout/footer') %>
