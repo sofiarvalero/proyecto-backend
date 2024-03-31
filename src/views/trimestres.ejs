@@ -44,10 +44,10 @@
         </div>
     </nav>
     <div class="container mt-5">
-        <h1 class="mb-2">Listado de Profesores</h1>
+        <h1 class="mb-2">Listado de Trimestres</h1>
 
         <button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Agregar Profesor
+            Agregar Trimestre
         </button>
 
         <!-- Modal -->
@@ -59,28 +59,18 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="profesores" method="post">
+                        <form action="trimestres" method="post">
                             <div class="mb-3">
-                                <label for="nombre" class="form-label">Nombre del Profesor</label>
+                                <label for="nombre" class="form-label">Nombre del Trimestre</label>
                                 <input type="text" class="form-control" name="nombre" id="nombre"
                                     placeholder="Nombre..." required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="telefono" class="form-label">Teléfono del Profesor</label>
-                                <input type="number" class="form-control" name="telefono" id="telefono"
-                                    placeholder="Teléfono..." required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="cedula" class="form-label">Cédula del Profesor</label>
-                                <input type="number" class="form-control" name="cedula" id="cedula"
-                                    placeholder="Cédula..." required>
                             </div>
                             <div class="mb-3">
                                 <label for="token" class="form-label">Token de acceso</label>
                                 <input type="text" class="form-control" name="token" id="token" placeholder="Token..."
                                     required>
                             </div>
-                            <button type="submit" class="btn btn-success">Agregar Profesor</button>
+                            <button type="submit" class="btn btn-success">Agregar Trimestre</button>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -90,31 +80,23 @@
             </div>
         </div>
 
-        <% if (profesores.length> 0) { %>
+        <% if (trimestres.length> 0) { %>
             <table class="table table-bordered border-primary">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Teléfono</th>
-                        <th scope="col">Cédula</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <% profesores.forEach((row, index)=> { %>
+                    <% trimestres.forEach((row, index)=> { %>
                         <tr class="table-primary border-primary">
                             <td scope="row">
                                 <%= row._id %>
                             </td>
                             <td>
                                 <%= row.nombre %>
-                            </td>
-                            <td>
-                                <%= row.telefono %>
-                            </td>
-                            <td>
-                                V-<%= row.cedula %>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
@@ -134,7 +116,7 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="profesores/eliminar/<%=row._id %>" method="post">
+                                                <form action="trimestre/eliminar/<%=row._id %>" method="post">
                                                     <div class="mb-3">
                                                         <label for="token" class="form-label">Token de acceso</label>
                                                         <input type="text" class="form-control" name="token" id="token"
@@ -158,30 +140,18 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Profesor
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Trimestre
                                                 </h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="profesores/editar/<%=row._id %>" method="post">
+                                                <form action="trimestres/editar/<%=row._id %>" method="post">
                                                     <div class="mb-3">
                                                         <label for="nombre" class="form-label">Nombre del
-                                                            Profesor</label>
+                                                            Trimestre</label>
                                                         <input type="text" class="form-control" name="nombre"
                                                             id="nombre" placeholder="<%=row.nombre%>" required>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="telefono" class="form-label">Teléfono del
-                                                            Profesor</label>
-                                                        <input type="number" class="form-control" name="telefono"
-                                                            id="telefono" placeholder="<%=row.telefono%>" required>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="cedula" class="form-label">Cédula del
-                                                            Profesor</label>
-                                                        <input type="number" class="form-control" name="cedula"
-                                                            id="cedula" placeholder="<%=row.cedula%>" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="token" class="form-label">Token de acceso</label>
@@ -189,7 +159,7 @@
                                                             placeholder="Token..." required>
                                                     </div>
                                                     <button type="submit" class="btn btn-success">Editar
-                                                        Profesor</button>
+                                                        Trimestre</button>
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
@@ -205,7 +175,7 @@
                 </tbody>
             </table>
             <% } else { %>
-                <h3>No hay Profesores Registrados...</h3>
+                <h3>No hay Trimestres Registrados...</h3>
                 <% } %>
     </div>
     <%- include('layout/footer') %>

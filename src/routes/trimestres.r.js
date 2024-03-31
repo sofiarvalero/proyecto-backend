@@ -6,7 +6,8 @@ const trimestresControllers = require('../controllers/trimestres.c')
 router.get('/', function(req, res, next) {
     trimestresControllers.listar()
     .then((resultado) => {
-        res.status(200).json({"trimestres": resultado, "mensaje": "Listado con éxito los trimestres"})
+        res.render('trimestres', {trimestres: resultado})
+        //res.status(200).json({"trimestres": resultado, "mensaje": "Listado con éxito los trimestres"})
     })
     .catch((error) => {
         res.status(400).json({"error": error})
@@ -28,7 +29,8 @@ router.get("/:id", function (req, res, next) {
 router.post("/", function (req, res, next) {
     trimestresControllers.agregar(req.body)
     .then((resultado) => {
-        res.status(201).json({"trimestre_agregado": resultado, "mensaje": "Agregado con éxito el trimestre"})
+        res.render('', {mensaje: "Agregado con éxito el Trimestre"})
+        //res.status(201).json({"trimestre_agregado": resultado, "mensaje": "Agregado con éxito el trimestre"})
     })
     .catch((error) => {
         res.status(400).json({"error": error})
@@ -62,7 +64,8 @@ router.post("/eliminar/:id", function (req, res, next) {
     console.log(req.body)
     trimestresControllers.eliminar(req.params.id, req.body)
     .then((resultado) => {
-        res.status(200).json({"trimestre_eliminar": resultado, "mensaje": "Eliminado con éxito el trimestre"})
+        res.render('', {mensaje: "Eliminado con éxito el trimestre"})
+        // res.status(200).json({"trimestre_eliminar": resultado, "mensaje": "Eliminado con éxito el trimestre"})
     })
     .catch((error) => {
         res.status(400).json({"error": error})
@@ -73,7 +76,8 @@ router.post("/eliminar/:id", function (req, res, next) {
 router.post("/editar/:id", function (req, res, next) {
     trimestresControllers.actualizar(req.params.id ,req.body)
     .then((resultado) => {
-        res.status(201).json({"trimestre_editado": resultado, "mensaje": "Editado con éxito el trimestre"})
+        res.render('', {mensaje: "Editado con éxito el trimestre"})
+        // res.status(201).json({"trimestre_editado": resultado, "mensaje": "Editado con éxito el trimestre"})
     })
     .catch((error) => {
         res.status(400).json({"error": error})
