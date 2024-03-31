@@ -11,7 +11,7 @@ const materiasSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    profesorId: {
+    profesor: {
       type: String,
       required: true,
     },

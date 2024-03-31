@@ -11,10 +11,14 @@ const seccionesSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    materiaId: {
+    materia: {
       type: String,
       required: true,
     },
+    trimestre: {
+      type: String,
+      required: true,
+    }
   },
   {
     versionKey: false, //para evitar el __v al agregar datos

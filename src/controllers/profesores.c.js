@@ -106,7 +106,7 @@ class profesoresControllers {
         if (!verificacionExisteId) {
           return reject("No existe el profesor")
         }
-        await materiasModel.updateMany({ profesorId: id }, { profesorId: "Sin profesor" })
+        await materiasModel.updateMany({ profesor: verificacionExisteId.nombre }, { profesor: "Sin profesor" })
         const datos = await profesoresModel.findByIdAndDelete(id); // Eliminamos la materia
         if (datos) {
           return resolve(datos)

@@ -44,14 +44,14 @@ class materiasControllers {
         if (verificacionExiste.length > 0) {
           return reject("Ya existe una materia con ese nombre");
         }
-        const verificiacionProfesor = await profesoresModel.findById(materia.profesorId); // Validamos que exista el profesor
-        if (!verificiacionProfesor) {
+        const verificiacionProfesor = await profesoresModel.find({nombre: materia.profesor}); // Validamos que exista el profesor
+        if (verificiacionProfesor.length === 0) {
           return reject("No existe el profesor que dará esta materia")
         }
         const data = {
           nombre: materia.nombre,
           descripcion: materia.descripcion,
-          profesorId: materia.profesorId,
+          profesor: materia.profesor,
           creditos: Number(materia.creditos)
         } // Creamos el documento con los tipos de datos correctos
         const datos = await materiasModel.create(data);
@@ -80,14 +80,14 @@ class materiasControllers {
         if (verificacionExiste.length > 1) {
           return reject("Ya existe una materia con ese nombre");
         }
-        const verificiacionProfesor = await profesoresModel.findById(materia.profesorId); // Validamos que exista el profesor
-        if (!verificiacionProfesor) {
+        const verificiacionProfesor = await profesoresModel.find({nombre: materia.profesor}); // Validamos que exista el profesor
+        if (verificiacionProfesor.length === 0) {
           return reject("No existe el profesor que dará esta materia")
         }
         const data = {
           nombre: materia.nombre,
           descripcion: materia.descripcion,
-          profesorId: materia.profesorId,
+          profesor: materia.profesor,
           creditos: Number(materia.creditos)
         } // Creamos el documento con los tipos de datos correctos
         const datos = await materiasModel.findByIdAndUpdate(id, data);
@@ -120,8 +120,7 @@ class materiasControllers {
         }
         const datos = await materiasModel.findByIdAndDelete(id); // Eliminamos la materia
         if (datos) {
-          await seccionesModel.deleteMany({materiaId: id})
-          await eventosModel.deleteMany({materiaId: id})
+          await seccionesModel.deleteMany({materia: verificacionExisteId.nombre})
           return resolve(datos)
         }
         return reject("No se pudo eliminar la materia")

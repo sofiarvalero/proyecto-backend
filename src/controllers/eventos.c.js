@@ -1,5 +1,5 @@
 const eventosModel = require('../models/eventos.m.js');
-const materiasModel = require("../models/materias.m.js");
+const seccionesM = require('../models/secciones.m.js');
 const { autenticacion } = require('./jwt/autenticacion.js');
 
 class eventosControllers {
@@ -38,22 +38,32 @@ class eventosControllers {
         if (acceso != 'acceso permitido') {
           return reject(acceso)
         }
-        const verificiacionMateria = await materiasModel.findById(evento.materiaId); // Validamos que exista la materia
-        if (!verificiacionMateria) {
-          return reject("No existe la Materia que deseas agregar el evento")
+        let data = {}
+        if (evento.seccionId === "") {
+          data = {
+            tipo: evento.tipo,
+            descripcion: evento.descripcion,
+            fecha: evento.fecha
+          } // Creamos el documento con los tipos de datos correctos
+        } else {
+          const verificiacionSeccion = await seccionesM.find({nombre: evento.seccion}); // Validamos que exista la Seccion
+          if (verificiacionSeccion.length === 0) {
+            return reject("No existe la Seccion que deseas agregar el evento")
+          }
+          data = {
+            tipo: evento.tipo,
+            descripcion: evento.descripcion,
+            fecha: evento.fecha,
+            seccion: evento.seccion
+          } // Creamos el documento con los tipos de datos correctos
         }
-        const data = {
-          tipo: evento.tipo,
-          descripcion: evento.descripcion,
-          fecha: evento.fecha.toLocaleString("es-ES"), // El formato de entrada debe ser YYYY-MM-DD
-          materiaId: evento.materiaId
-        } // Creamos el documento con los tipos de datos correctos
         const datos = await eventosModel.create(data);
         if (datos) {
           return resolve(datos)
         }
         return reject("No se pudo agregar el evento")
       } catch (error) {
+        console.log(error)
         return reject(error);
       }
     });
@@ -70,15 +80,10 @@ class eventosControllers {
         if (!verificacionExisteId) {
           return reject("No existe el evento")
         }
-        const verificiacionMateria = await materiasModel.findById(evento.materiaId); // Validamos que exista la materia
-        if (!verificiacionMateria) {
-          return reject("No existe la materia para editar el evento")
-        }
         const data = {
           tipo: evento.tipo,
           descripcion: evento.descripcion,
-          fecha: evento.fecha.toLocaleString("es-ES"), // El formato de entrada debe ser YYYY-MM-DD
-          materiaId: evento.materiaId
+          fecha: evento.fecha
         } // Creamos el documento con los tipos de datos correctos
         const datos = await eventosModel.findByIdAndUpdate(id, data);
         if (datos) {
@@ -86,8 +91,7 @@ class eventosControllers {
             _id: datos._id,
             tipo: evento.tipo,
             descripcion: evento.descripcion,
-            fecha: evento.fecha.toLocaleString("es-ES"), // El formato de entrada debe ser YYYY-MM-DD
-            materiaId: evento.materiaId
+            fecha: evento.fecha
           })
         }
         return reject("No se pudo editar el evento")

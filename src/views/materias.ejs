@@ -26,9 +26,9 @@
                                     placeholder="Descripcion..." required>
                             </div>
                             <div class="mb-3">
-                                <label for="profesorId" class="form-label">ID del Profesor</label>
-                                <input type="text" class="form-control" name="profesorId" id="profesorId"
-                                    placeholder="ID del Profesor..." required>
+                                <label for="profesor" class="form-label">Profesor</label>
+                                <input type="text" class="form-control" name="profesor" id="profesor"
+                                    placeholder="Profesor..." required>
                             </div>
                             <div class="mb-3">
                                 <label for="creditos" class="form-label">Unidades de Créditos</label>
@@ -56,7 +56,7 @@
                         <th scope="col">ID</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Descripcion</th>
-                        <th scope="col">Profesor ID</th>
+                        <th scope="col">Profesor</th>
                         <th scope="col">Unidades de Crédito</th>
                         <th scope="col">Acciones</th>
                     </tr>
@@ -74,7 +74,7 @@
                                 <%= row.descripcion %>
                             </td>
                             <td>
-                                <%= row.profesorId %>
+                                <%= row.profesor %>
                             </td>
                             <td>
                                 <%= row.creditos %>
@@ -140,10 +140,9 @@
                                                             id="descripcion" placeholder="<%=row.descripcion %>" required>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="profesorId" class="form-label">ID del
-                                                            Profesor</label>
-                                                        <input type="text" class="form-control" name="profesorId"
-                                                            id="profesorId" placeholder="<%=row.profesorId%>" required>
+                                                        <label for="profesor" class="form-label">Profesor</label>
+                                                        <input type="text" class="form-control" name="profesor"
+                                                            id="profesor" placeholder="<%=row.profesorId%>" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="creditos" class="form-label">Unidades de

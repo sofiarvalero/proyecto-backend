@@ -31,16 +31,16 @@
                                     required>
                             </div>
                             <div class="mb-3">
-                                <label for="materiaId" class="form-label">ID de la Materia</label>
-                                <input type="text" class="form-control" name="materiaId" id="materiaId"
-                                    placeholder="ID de la Materia..." required>
+                                <label for="seccion" class="form-label">Seccion</label>
+                                <input type="text" class="form-control" name="seccion" id="seccion"
+                                    placeholder="Seccion de ser el caso...">
                             </div>
                             <div class="mb-3">
                                 <label for="token" class="form-label">Token de acceso</label>
                                 <input type="text" class="form-control" name="token" id="token" placeholder="Token..."
                                     required>
                             </div>
-                            <button type="submit" class="btn btn-success">Agregar Materia</button>
+                            <button type="submit" class="btn btn-success">Agregar Evento</button>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -57,7 +57,7 @@
                         <th scope="col">Tipo</th>
                         <th scope="col">Descripcion</th>
                         <th scope="col">Fecha</th>
-                        <th scope="col">Materia ID</th>
+                        <th scope="col">Seccion</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
@@ -77,7 +77,7 @@
                                 <%= row.fecha %>
                             </td>
                             <td>
-                                <%= row.materiaId %>
+                                <%= row.seccion %>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
@@ -142,12 +142,6 @@
                                                         <label for="fecha" class="form-label">Fecha del Evento</label>
                                                         <input type="date" class="form-control" name="fecha" id="fecha"
                                                             placeholder="<%=row.fecha%>" required>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="materiaId" class="form-label">ID de la
-                                                            Materia</label>
-                                                        <input type="text" class="form-control" name="materiaId"
-                                                            id="materiaId" placeholder="<%=row.materiaId %>" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="token" class="form-label">Token de acceso</label>

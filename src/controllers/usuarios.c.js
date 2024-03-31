@@ -48,11 +48,13 @@ class usuariosControllers {
                 if (!contraseñaValida) {
                     return reject("La contraseña es incorrecta");
                 };
+                console.log('bien')
                 let token = crearToken({
                     id: usuarioAcceder._id,
                     usuario: usuarioAcceder.usuario,
                     rol: usuarioAcceder.rol,
                 });
+                console.log('bien')
                 resolve({
                     token: token,
                     usuario: usuarioAcceder.usuario

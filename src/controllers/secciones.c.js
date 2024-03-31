@@ -1,5 +1,7 @@
+const eventosM = require("../models/eventos.m.js");
 const materiasModel = require("../models/materias.m.js");
 const seccionesModel = require("../models/secciones.m.js");
+const trimestresM = require("../models/trimestres.m.js");
 const { autenticacion } = require("./jwt/autenticacion.js");
 
 class seccionesControllers {
@@ -38,22 +40,27 @@ class seccionesControllers {
         if (acceso != 'acceso permitido') {
           return reject(acceso)
         }
-        const verificacionExiste = await seccionesModel.find({nombre: seccion.nombre}); // Validamos que no se repitan las secciones
+        const verificacionExiste = await seccionesModel.find({ nombre: seccion.nombre }); // Validamos que no se repitan las secciones
         if (verificacionExiste.length > 0) {
-            return reject("Ya existe una materia con ese nombre");
+          return reject("Ya existe una materia con ese nombre");
         }
-        const verificiacionMateria= await materiasModel.findById(seccion.materiaId); // Validamos que exista la materia
-        if (!verificiacionMateria) {
-            return reject("No existe la Materia que deseas agregar la seccón")
+        const verificiacionMateria = await materiasModel.find({ nombre: seccion.materia }); // Validamos que exista la materia
+        if (verificiacionMateria.length === 0) {
+          return reject("No existe la Materia que deseas agregar la seccón")
+        }
+        const verificiacionTrimestre = await trimestresM.find({ nombre: seccion.trimestre }); // Validamos que exista el trimestre
+        if (verificiacionTrimestre.length === 0) {
+          return reject("No existe el Trimestre que deseas agregar la seccón")
         }
         const data = {
-            nombre: seccion.nombre,
-            alumnos: Number(seccion.alumnos),
-            materiaId: seccion.materiaId
+          nombre: seccion.nombre,
+          alumnos: Number(seccion.alumnos),
+          materia: seccion.materia,
+          trimestre: seccion.trimestre
         } // Creamos el documento con los tipos de datos correctos
         const datos = await seccionesModel.create(data);
         if (datos) {
-            return resolve(datos)
+          return resolve(datos)
         }
         return reject("No se pudo agregar la sección")
       } catch (error) {
@@ -71,29 +78,24 @@ class seccionesControllers {
         }
         const verificacionExisteId = await seccionesModel.findById(id); // Validamos que exista la seccion a editar
         if (!verificacionExisteId) {
-            return reject("No existe la sección")
+          return reject("No existe la sección")
         }
-        const verificacionExiste = await seccionesModel.find({nombre: seccion.nombre}); // Validamos que no se repitan las secciones
+        const verificacionExiste = await seccionesModel.find({ nombre: seccion.nombre }); // Validamos que no se repitan las secciones
         if (verificacionExiste.length >= 1) {
-            return reject("Ya existe una seccion con ese nombre");
-        }
-        const verificiacionMateria= await materiasModel.findById(seccion.materiaId); // Validamos que exista la materia
-        if (!verificiacionMateria) {
-            return reject("No existe la materia que pertenece la sección")
+          return reject("Ya existe una seccion con ese nombre");
         }
         const data = {
-            nombre: seccion.nombre,
-            alumnos: Number(seccion.alumnos),
-            materiaId: seccion.materiaId
+          nombre: seccion.nombre,
+          alumnos: Number(seccion.alumnos),
         } // Creamos el documento con los tipos de datos correctos
         const datos = await seccionesModel.findByIdAndUpdate(id, data);
         if (datos) {
-            return resolve({
-                _id: datos._id,
-                nombre: seccion.nombre,
-                alumnos: Number(seccion.alumnos),
-                materiaId: seccion.materiaId
-            })
+          await eventosM.updateMany({ seccion: verificacionExisteId.nombre }, { seccion: seccion.nombre })
+          return resolve({
+            _id: datos._id,
+            nombre: seccion.nombre,
+            alumnos: Number(seccion.alumnos)
+          })
         }
         return reject("No se pudo editar la sección")
       } catch (error) {
@@ -111,11 +113,12 @@ class seccionesControllers {
         }
         const verificacionExisteId = await seccionesModel.findById(id); // Validamos que exista la seccion a eliminar
         if (!verificacionExisteId) {
-            return reject("No existe la seccion")
+          return reject("No existe la seccion")
         }
         const datos = await seccionesModel.findByIdAndDelete(id); // Eliminamos la materia
         if (datos) {
-            return resolve(datos)
+          await eventosM.deleteMany({ seccion: verificacionExisteId.nombre })
+          return resolve(datos)
         }
         return reject("No se pudo eliminar la seccion")
       } catch (error) {

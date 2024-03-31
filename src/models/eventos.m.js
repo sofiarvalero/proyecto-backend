@@ -12,13 +12,15 @@ const eventosSchema = new mongoose.Schema(
       required: true,
     },
     fecha: {
-      type: Date,
-      required: true,
-    },
-    materiaId: {
       type: String,
       required: true,
     },
+    seccion: {
+      type: String,
+    },
+    semana: {
+      type: Number,
+    }
   },
   {
     versionKey: false, //para evitar el __v al agregar datos

@@ -12,6 +12,7 @@ const profesores = require('./routes/profesores.r');
 const secciones = require('./routes/secciones.r');
 const materias = require('./routes/materias.r');
 const eventos = require('./routes/eventos.r');
+const trimestres = require('./routes/trimestres.r');
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use('/profesores', profesores);
 app.use('/secciones', secciones);
 app.use('/materias', materias);
 app.use('/eventos', eventos);
+app.use('/trimestres', trimestres);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -27,9 +27,14 @@
                                     placeholder="Alumnos..." required>
                             </div>
                             <div class="mb-3">
-                                <label for="materiaId" class="form-label">ID de la Materia</label>
-                                <input type="text" class="form-control" name="materiaId" id="materiaId"
-                                    placeholder="ID de la Materia..." required>
+                                <label for="materia" class="form-label">Materia</label>
+                                <input type="text" class="form-control" name="materia" id="materia"
+                                    placeholder="Materia..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="trimestre" class="form-label">Trimestre</label>
+                                <input type="text" class="form-control" name="trimestre" id="trimestre"
+                                    placeholder="Trimestre..." required>
                             </div>
                             <div class="mb-3">
                                 <label for="token" class="form-label">Token de acceso</label>
@@ -52,7 +57,8 @@
                         <th scope="col">ID</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Alumnos</th>
-                        <th scope="col">Materia ID</th>
+                        <th scope="col">Materia</th>
+                        <th scope="col">Trimestre</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
@@ -69,7 +75,10 @@
                                 <%= row.alumnos %>
                             </td>
                             <td>
-                                <%= row.materiaId %>
+                                <%= row.materia %>
+                            </td>
+                            <td>
+                                <%= row.trimestre %>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
@@ -132,10 +141,14 @@
                                                             id="alumnos" placeholder="<%=row.alumnos %>" required>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="materiaId" class="form-label">ID de la
-                                                            Materia</label>
-                                                        <input type="text" class="form-control" name="materiaId"
-                                                            id="materiaId" placeholder="<%=row.materiaId %>" required>
+                                                        <label for="materia" class="form-label">Materia</label>
+                                                        <input type="text" class="form-control" name="materia"
+                                                            id="materia" placeholder="<%=row.materiaId %>" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="trimestreId" class="form-label">Trimestre</label>
+                                                        <input type="text" class="form-control" name="trimestre" id="trimestre"
+                                                            placeholder="<%=row.profesorId %>" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="token" class="form-label">Token de acceso</label>
