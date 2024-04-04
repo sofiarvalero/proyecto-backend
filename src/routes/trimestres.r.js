@@ -29,11 +29,11 @@ router.get("/:id", function (req, res, next) {
 router.post("/", function (req, res, next) {
     trimestresControllers.agregar(req.body)
     .then((resultado) => {
-        res.render('', {mensaje: "Agregado con éxito el Trimestre"})
+        res.render('paginaCorrecto', {mensaje: "Agregado con éxito el Trimestre"})
         //res.status(201).json({"trimestre_agregado": resultado, "mensaje": "Agregado con éxito el trimestre"})
     })
     .catch((error) => {
-        res.status(400).json({"error": error})
+        res.render('paginaError', {mensaje: error})
     })
 });
 
@@ -64,11 +64,11 @@ router.post("/eliminar/:id", function (req, res, next) {
     console.log(req.body)
     trimestresControllers.eliminar(req.params.id, req.body)
     .then((resultado) => {
-        res.render('', {mensaje: "Eliminado con éxito el trimestre"})
+        res.render('paginaCorrecto', {mensaje: "Eliminado con éxito el trimestre"})
         // res.status(200).json({"trimestre_eliminar": resultado, "mensaje": "Eliminado con éxito el trimestre"})
     })
     .catch((error) => {
-        res.status(400).json({"error": error})
+        res.render('paginaError', {mensaje: error})
     })
 });
 
@@ -76,11 +76,11 @@ router.post("/eliminar/:id", function (req, res, next) {
 router.post("/editar/:id", function (req, res, next) {
     trimestresControllers.actualizar(req.params.id ,req.body)
     .then((resultado) => {
-        res.render('', {mensaje: "Editado con éxito el trimestre"})
+        res.render('paginaCorrecto', {mensaje: "Editado con éxito el trimestre"})
         // res.status(201).json({"trimestre_editado": resultado, "mensaje": "Editado con éxito el trimestre"})
     })
     .catch((error) => {
-        res.status(400).json({"error": error})
+        res.render('paginaError', {mensaje: error})
     })
 });
 

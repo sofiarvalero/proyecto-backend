@@ -43,9 +43,9 @@ async function autenticacion (token, roles) {
         const tokenData = await verifyToken(token)
         if (tokenData.data.id) {
             if (roles.includes(tokenData.data.rol)){
-                return 'acceso permitido'
+                return ({token: tokenData.data, mensaje: 'acceso permitido'})
             }else{
-                return 'No tienes permisos con ese rol' // No tienes permisos con ese rol
+                return ({mensaje: 'No tienes permisos con ese rol'}) // No tienes permisos con ese rol
             }
         } else {
             return 'Token inválido' // Token inválido

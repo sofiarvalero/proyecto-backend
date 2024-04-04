@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Universidad</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta2/css/bootstrap.min.css"
+        integrity="sha512-aqT9YD5gLuLBr6ipQAS+72o5yHKzgZbGxEh6iY8lW/r6gG14e2kBTAJb8XrxzZrMOgSmDqtLaF76T0Z6YY2IHg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark " style="height: 75px;">
+        <div id="my-nav" class="container collapse navbar-collapse">
+            <a href="/usuarios" class="navbar-brand"><i class="fas fa-code me-2"></i> Universidad</a>
+            <button class="navbar-toggler" data-bs-target="#my-nav" data-bs-toggle="collapse" aria-controls="my-nav"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link text-primary" href="http://localhost:3000/eventos">Eventos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-primary" href="http://localhost:3000/materias">Materias</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-primary" href="http://localhost:3000/profesores">Profesor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-primary" href="http://localhost:3000/secciones">Secciones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-primary" href="http://localhost:3000/trimestres">Trimestres</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    <div class="container">
+        <h1 class="mt-5 mb-5">Todos los profesores con sus materias y secciones</h1>
+        <% profesores.forEach((row, index)=> { %>
+            <div class="container mb-5">
+                <h3 class="mb-5">
+                    <%= row.profesor.nombre %>
+                </h3>
+                <h5 class="mb-2">
+                    Materias
+                </h5>
+                <table class="table table-bordered border-primary mb-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Unidades de Crédito</th>
+                        </tr>
+                    </thead>
+                    <% row.materias.forEach((materia, index)=> { %>
+
+                        <tbody>
+                            <tr class="table-primary border-primary">
+                                <td scope="row">
+                                    <%= materia._id %>
+                                </td>
+                                <td>
+                                    <%= materia.nombre %>
+                                </td>
+                                <td>
+                                    <%= materia.profesor %>
+                                </td>
+                                <td>
+                                    <%= materia.creditos %>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <% }) %>
+                </table>
+
+                <h5 class="mb-2">
+                    Secciones
+                </h5>
+                <table class="table table-bordered border-primary">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Alumnos</th>
+                            <th scope="col">Materia</th>
+                            <th scope="col">Trimestre</th>
+                        </tr>
+                    </thead>
+                    <% row.secciones.forEach((seccion, index)=> { %>
+
+                        <tbody>
+                            <tr class="table-primary border-primary">
+                                <td scope="row">
+                                    <%= seccion._id %>
+                                </td>
+                                <td>
+                                    <%= seccion.nombre %>
+                                </td>
+                                <td>
+                                    <%= seccion.alumnos %>
+                                </td>
+                                <td>
+                                    <%= seccion.materia %>
+                                </td>
+                                <td>
+                                    <%= seccion.trimestre %>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <% }) %>
+                </table>
+            </div>
+            <% }) %>
+    </div>
+    <%- include('layout/footer') %>

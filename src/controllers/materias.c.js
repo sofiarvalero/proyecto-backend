@@ -3,6 +3,7 @@ const profesoresModel = require("../models/profesores.m.js");
 const seccionesModel = require("../models/secciones.m.js");
 const eventosModel = require("../models/eventos.m.js");
 const { autenticacion } = require("./jwt/autenticacion.js");
+const eventosM = require("../models/eventos.m.js");
 
 class materiasControllers {
   async listar() {
@@ -37,8 +38,8 @@ class materiasControllers {
     return new Promise(async (resolve, reject) => {
       try {
         const acceso = await autenticacion(materia.token, ['director'])
-        if (acceso != 'acceso permitido') {
-          return reject(acceso)
+        if (acceso.mensaje != "acceso permitido") {
+          return reject(acceso.mensaje);
         }
         const verificacionExiste = await materiasModel.find({ nombre: materia.nombre }); // Validamos que no se repitan las materias
         if (verificacionExiste.length > 0) {
@@ -69,8 +70,8 @@ class materiasControllers {
     return new Promise(async (resolve, reject) => {
       try {
         const acceso = await autenticacion(materia.token, ['director'])
-        if (acceso != 'acceso permitido') {
-          return reject(acceso)
+        if (acceso.mensaje != "acceso permitido") {
+          return reject(acceso.mensaje);
         }
         const verificacionExisteId = await materiasModel.findById(id); // Validamos que exista la materia a editar
         if (!verificacionExisteId) {
@@ -111,8 +112,8 @@ class materiasControllers {
     return new Promise(async (resolve, reject) => {
       try {
         const acceso = await autenticacion(materia.token, ['director'])
-        if (acceso != 'acceso permitido') {
-          return reject(acceso)
+        if (acceso.mensaje != "acceso permitido") {
+          return reject(acceso.mensaje);
         }
         const verificacionExisteId = await materiasModel.findById(id); // Validamos que exista la materia a eliminar
         if (!verificacionExisteId) {
@@ -120,6 +121,7 @@ class materiasControllers {
         }
         const datos = await materiasModel.findByIdAndDelete(id); // Eliminamos la materia
         if (datos) {
+          await eventosM.deleteMany({ materia: verificacionExisteId.nombre })
           await seccionesModel.deleteMany({materia: verificacionExisteId.nombre})
           return resolve(datos)
         }

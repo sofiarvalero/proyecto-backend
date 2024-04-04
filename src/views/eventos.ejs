@@ -45,27 +45,77 @@
     </nav>
     <div class="container mt-5">
         <h1 class="mb-2">Listado de Eventos</h1>
-        <button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Agregar Eventos
-        </button>
+        <div class="mr-2">
+            <button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Agregar Eventos Globales
+            </button>
+            <button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal4">
+                Agregar Eventos de Materias
+            </button>
+            <button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal5">
+                Agregar Eventos de Secciones
+            </button>
+        </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel4"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Evento</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel4">Agregar Evento</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="eventos" method="post">
+                        <form action="eventos/materia" method="post">
                             <div class="mb-3">
                                 <label for="tipo" class="form-label">Tipo de Evento</label>
                                 <input type="text" class="form-control" name="tipo" id="tipo"
                                     placeholder="Tipo de Evento..." required>
                             </div>
                             <div class="mb-3">
-                                <label for="descripcion" class="form-label">Descripcion del Materia</label>
+                                <label for="descripcion" class="form-label">Descripcion del Evento</label>
+                                <input type="text" class="form-control" name="descripcion" id="descripcion"
+                                    placeholder="Descripcion..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="materia" class="form-label">Materia</label>
+                                <input type="text" class="form-control" name="materia" id="materia"
+                                    placeholder="Materia..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="token" class="form-label">Token de acceso</label>
+                                <input type="text" class="form-control" name="token" id="token" placeholder="Token..."
+                                    required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Agregar Evento de Materia</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel5"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel5">Agregar Evento Seccion</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="eventos/seccion" method="post">
+                            <div class="mb-3">
+                                <label for="tipo" class="form-label">Tipo de Evento</label>
+                                <input type="text" class="form-control" name="tipo" id="tipo"
+                                    placeholder="Tipo de Evento..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="descripcion" class="form-label">Descripcion del Evento</label>
                                 <input type="text" class="form-control" name="descripcion" id="descripcion"
                                     placeholder="Descripcion..." required>
                             </div>
@@ -77,14 +127,14 @@
                             <div class="mb-3">
                                 <label for="seccion" class="form-label">Seccion</label>
                                 <input type="text" class="form-control" name="seccion" id="seccion"
-                                    placeholder="Seccion de ser el caso...">
+                                    placeholder="Seccion..." required>
                             </div>
                             <div class="mb-3">
                                 <label for="token" class="form-label">Token de acceso</label>
                                 <input type="text" class="form-control" name="token" id="token" placeholder="Token..."
                                     required>
                             </div>
-                            <button type="submit" class="btn btn-success">Agregar Evento</button>
+                            <button type="submit" class="btn btn-success">Agregar Evento de Seccion</button>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -93,20 +143,60 @@
                 </div>
             </div>
         </div>
-        <% if (eventos.length> 0) { %>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Evento</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="eventos/globales" method="post">
+                            <div class="mb-3">
+                                <label for="tipo" class="form-label">Tipo de Evento</label>
+                                <input type="text" class="form-control" name="tipo" id="tipo"
+                                    placeholder="Tipo de Evento..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="descripcion" class="form-label">Descripcion del Evento</label>
+                                <input type="text" class="form-control" name="descripcion" id="descripcion"
+                                    placeholder="Descripcion..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fecha" class="form-label">Fecha del Evento</label>
+                                <input type="date" class="form-control" name="fecha" id="fecha" placeholder="Fecha..."
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="token" class="form-label">Token de acceso</label>
+                                <input type="text" class="form-control" name="token" id="token" placeholder="Token..."
+                                    required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Agregar Evento Global</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% if (eventosMaterias.length> 0) { %>
             <table class="table table-bordered border-primary">
+                <h3 class="mb-3">Eventos de Materias</h3>
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Tipo</th>
                         <th scope="col">Descripcion</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Seccion</th>
+                        <th scope="col">Materia</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <% eventos.forEach((row, index)=> { %>
+                    <% eventosMaterias.forEach((row, index)=> { %>
                         <tr class="table-primary border-primary">
                             <td scope="row">
                                 <%= row._id %>
@@ -118,10 +208,7 @@
                                 <%= row.descripcion %>
                             </td>
                             <td>
-                                <%= row.fecha %>
-                            </td>
-                            <td>
-                                <%= row.seccion %>
+                                <%= row.materia%>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
@@ -180,7 +267,8 @@
                                                         <label for="descripcion" class="form-label">Descripcion del
                                                             Materia</label>
                                                         <input type="text" class="form-control" name="descripcion"
-                                                            id="descripcion" placeholder="<%=row.descripcion%>" required>
+                                                            id="descripcion" placeholder="<%=row.descripcion%>"
+                                                            required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="fecha" class="form-label">Fecha del Evento</label>
@@ -209,7 +297,86 @@
                 </tbody>
             </table>
             <% } else { %>
-                <h3>No hay Eventos Registrados...</h3>
+                <h3 class="mb-5">No hay Eventos de Materias Registrados...</h3>
                 <% } %>
+
+                    <% if (eventosSecciones.length> 0) { %>
+                        <table class="table table-bordered border-primary">
+                            <h3 class="mb-3">Eventos de Secciones</h3>
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col">Descripcion</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Seccion</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% eventosSecciones.forEach((row, index)=> { %>
+                                    <tr class="table-primary border-primary">
+                                        <td scope="row">
+                                            <%= row._id %>
+                                        </td>
+                                        <td>
+                                            <%= row.tipo %>
+                                        </td>
+                                        <td>
+                                            <%= row.descripcion %>
+                                        </td>
+                                        <td>
+                                            <%= row.fecha %>
+                                        </td>
+                                        <td>
+                                            <%= row.seccion %>
+                                        </td>
+                                        <td>
+                                            Todavia No
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                        <% } else { %>
+                            <h3 class="mb-5">No hay Eventos de Secciones Registrados...</h3>
+                            <% } %>
+                                <% if (eventosGlobales.length> 0) { %>
+                                    <table class="table table-bordered border-primary">
+                                        <h3 class="mb-3">Eventos Globales</h3>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Tipo</th>
+                                                <th scope="col">Descripcion</th>
+                                                <th scope="col">Fecha</th>
+                                                <th scope="col">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% eventosGlobales.forEach((row, index)=> { %>
+                                                <tr class="table-primary border-primary">
+                                                    <td scope="row">
+                                                        <%= row._id %>
+                                                    </td>
+                                                    <td>
+                                                        <%= row.tipo %>
+                                                    </td>
+                                                    <td>
+                                                        <%= row.descripcion %>
+                                                    </td>
+                                                    <td>
+                                                        <%= row.fecha %>
+                                                    </td>
+                                                    <td>
+                                                        Todavia No
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                        </tbody>
+                                    </table>
+                                    <% } else { %>
+                                        <h3 class="mb-5">No hay Eventos Globales Registrados...</h3>
+                                        <% } %>
     </div>
     <%- include('layout/footer') %>

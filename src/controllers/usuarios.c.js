@@ -57,7 +57,8 @@ class usuariosControllers {
                 console.log('bien')
                 resolve({
                     token: token,
-                    usuario: usuarioAcceder.usuario
+                    usuario: usuarioAcceder.usuario,
+                    rol: usuarioAcceder.rol
                 })
             } catch (error) {
                 return reject(error);

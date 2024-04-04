@@ -125,10 +125,50 @@
                                 <%= row.trimestre %>
                             </td>
                             <td>
+                                <a href="http://localhost:3000/secciones/eventos/<%=row._id %>" class="btn btn-primary">
+                                    Eventos
+                                </a>
                                 <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
                                     data-bs-target="#<%=row._id %>2">Editar</button>
                                 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                                     data-bs-target="#<%=row._id %>">Eliminar</button>
+                                <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                                    data-bs-target="#<%=row._id %>3">+ Profesor</button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="<%=row._id %>3" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel8" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel8">Eliminar Secciones
+                                                </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="http://localhost:3000/secciones/asignar/<%=row._id %>" method="post">
+                                                    <div class="mb-3">
+                                                        <label for="nombre" class="form-label">Nombre del Profesor</label>
+                                                        <input type="text" class="form-control" name="nombre" id="nombre"
+                                                            placeholder="Profesor..." required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="token" class="form-label">Token de acceso</label>
+                                                        <input type="text" class="form-control" name="token" id="token"
+                                                            placeholder="Token..." required>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-danger">Eliminar
+                                                        Seccion</button>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger"
+                                                    data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="<%=row._id %>" tabindex="-1"
@@ -191,8 +231,8 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="trimestreId" class="form-label">Trimestre</label>
-                                                        <input type="text" class="form-control" name="trimestre" id="trimestre"
-                                                            placeholder="<%=row.profesorId %>" required>
+                                                        <input type="text" class="form-control" name="trimestre"
+                                                            id="trimestre" placeholder="<%=row.profesorId %>" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="token" class="form-label">Token de acceso</label>

@@ -66,6 +66,12 @@
                                     placeholder="Nombre..." required>
                             </div>
                             <div class="mb-3">
+                                <label for="inicio" class="form-label">Inicio del
+                                    Trimestre</label>
+                                <input type="date" class="form-control" name="inicio"
+                                    id="inicio" required>
+                            </div>
+                            <div class="mb-3">
                                 <label for="token" class="form-label">Token de acceso</label>
                                 <input type="text" class="form-control" name="token" id="token" placeholder="Token..."
                                     required>
@@ -86,6 +92,8 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Nombre</th>
+                        <th scope="col">Inicio</th>
+                        <th scope="col">Fin</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
@@ -97,6 +105,12 @@
                             </td>
                             <td>
                                 <%= row.nombre %>
+                            </td>
+                            <td>
+                                <%= row.inicio %>
+                            </td>
+                            <td>
+                                <%= row.fin %>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
@@ -116,7 +130,7 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="trimestre/eliminar/<%=row._id %>" method="post">
+                                                <form action="trimestres/eliminar/<%=row._id %>" method="post">
                                                     <div class="mb-3">
                                                         <label for="token" class="form-label">Token de acceso</label>
                                                         <input type="text" class="form-control" name="token" id="token"

@@ -15,6 +15,9 @@ const seccionesSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    profesor: {
+      type: String
+    },
     trimestre: {
       type: String,
       required: true,

@@ -7,6 +7,14 @@ const trimestresSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    inicio: {
+      type: String,
+      required: true
+    },
+    fin: {
+      type: String,
+      required: true
+    },
     duracion: {
       type: String,
       default: '14 Semanas'

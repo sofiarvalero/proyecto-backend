@@ -1,6 +1,6 @@
 const mongoose = require("mongoose"); //requerimos libreria de mongo
 
-const eventosSchema = new mongoose.Schema(
+const eventosGloblalesSchema = new mongoose.Schema(
   {
     id: mongoose.Schema.ObjectId,
     tipo: {
@@ -11,9 +11,9 @@ const eventosSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    materia: {
-      type: String,
-      required: true,
+    fecha: {
+        type: String,
+        required: true
     }
   },
   {
@@ -21,4 +21,4 @@ const eventosSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("eventos", eventosSchema, "eventos"); //primer argumento: nombre del modelo; segundo argumento: esquema; tercer argumento: nombre de la collection
+module.exports = mongoose.model("eventosGloblales", eventosGloblalesSchema, "eventosGloblales"); //primer argumento: nombre del modelo; segundo argumento: esquema; tercer argumento: nombre de la collection
